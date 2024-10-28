@@ -20,7 +20,7 @@
   <style scoped>
   .loading-bar {
     height: 5px;
-    background-color: black;
+    background-color: white;
     transition: width 0.1s linear;
   }
   .loading-bar-wrapper {
@@ -30,7 +30,7 @@
     transform: translateX(-50%);
     width: 50%; 
     height: 5px;
-    background-color: rgba(200, 200, 200, 0.5);
+    background-color: #333;
     border-radius: 5px;
     overflow: hidden;
   }
