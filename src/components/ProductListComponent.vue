@@ -7,27 +7,31 @@ import ProductCard from './ProductCardComponent.vue';
 
 const products = ref([
   {
-    name: "Vortexseries Oni R1",
-    location: "Kota Bekasi",
+    id: '1',
+    name: 'Vortexseries Oni R1',
+    location: 'Kota Bekasi',
     price: 100000,
-    condition: "Judge By Pict",
-    imageUrl: "/images/product/product1.jpeg"
+    condition: 'Judge By Pict',
+    imageUrl: '/images/product/product1.jpeg',
   },
   {
-    name: "Rexus Daxa Asteria V2",
-    location: "Kota Bandung",
+    id: '2',
+    name: 'Rexus Daxa Asteria V2',
+    location: 'Kota Bandung',
     price: 250000,
-    condition: "Very Good Condition",
-    imageUrl: "/images/product/product2.jpeg"
+    condition: 'Very Good Condition',
+    imageUrl: '/images/product/product2.jpeg',
   },
   {
-    name: "Logitech M191",
-    location: "Kab. Bandung",
+    id: '3',
+    name: 'Logitech M191',
+    location: 'Kab. Bandung',
     price: 50000,
-    condition: "Good Condition",
-    imageUrl: "/images/product/product3.jpeg"
+    condition: 'Good Condition',
+    imageUrl: '/images/product/product3.jpeg',
   },
 ]);
+
 </script>
 
 <template>
