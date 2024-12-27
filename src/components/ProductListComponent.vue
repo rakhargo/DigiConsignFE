@@ -1,36 +1,55 @@
 <!-- ProductList.vue -->
 <script setup lang="ts">
-import { ref } from 'vue';
 import ProductCard from './ProductCardComponent.vue';
 
 // const imageUrls = [""];
 
-const products = ref([
-  {
-    id: '1',
-    name: 'Vortexseries Oni R1',
-    location: 'Kota Bekasi',
-    price: 100000,
-    condition: 'Judge By Pict',
-    imageUrl: '/images/product/product1.jpeg',
-  },
-  {
-    id: '2',
-    name: 'Rexus Daxa Asteria V2',
-    location: 'Kota Bandung',
-    price: 250000,
-    condition: 'Very Good Condition',
-    imageUrl: '/images/product/product2.jpeg',
-  },
-  {
-    id: '3',
-    name: 'Logitech M191',
-    location: 'Kab. Bandung',
-    price: 50000,
-    condition: 'Good Condition',
-    imageUrl: '/images/product/product3.jpeg',
-  },
-]);
+// const products = ref([
+//   {
+//     id: '1',
+//     name: 'Vortexseries Oni R1',
+//     location: 'Kota Bekasi',
+//     price: 100000,
+//     condition: 'Judge By Pict',
+//     imageUrl: '/images/product/product1.jpeg',
+//   },
+//   {
+//     id: '2',
+//     name: 'Rexus Daxa Asteria V2',
+//     location: 'Kota Bandung',
+//     price: 250000,
+//     condition: 'Very Good Condition',
+//     imageUrl: '/images/product/product2.jpeg',
+//   },
+//   {
+//     id: '3',
+//     name: 'Logitech M191',
+//     location: 'Kab. Bandung',
+//     price: 50000,
+//     condition: 'Good Condition',
+//     imageUrl: '/images/product/product3.jpeg',
+//   },
+// ]);
+
+import { ref, onMounted } from 'vue';
+
+    //import api
+    import api from '../api';
+
+    //define state
+    const products = ref([]);
+
+    async function fetchAllProduct() {
+      //fetch data 
+      const response = await api.get('/api/product');
+      products.value = response.data;
+      console.log(products.value);
+      
+    }
+
+    onMounted(() => {
+      fetchAllProduct();
+    });
 
 </script>
 

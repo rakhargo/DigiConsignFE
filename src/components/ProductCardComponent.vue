@@ -26,13 +26,13 @@ function formatRupiah(amount: number): string {
 
 <template>
   <div class="product-card" @click="navigateToDetail">
-    <img :src="props.product.imageUrl" class="product-image" alt="Product Image" />
-    <h3 class="text-lg font-bold mb-2">{{ props.product.name }}</h3>
-    <p class="text-gray-600 mb-2">{{ props.product.location }}</p>
+    <img :src="props.product.image" class="product-image" alt="Product Image" />
+    <h3 class="text-lg font-bold mb-2">{{ props.product.namaproduct }}</h3>
+    <p class="text-gray-600 mb-2">{{ props.product.lokasi.nama }}</p>
     <div class="flex justify-between items-center mt-4">
-      <span class="text-xl font-bold">{{ formatRupiah(props.product.price) }}</span>
+      <span class="text-xl font-bold">{{ formatRupiah(props.product.harga) }}</span>
     </div>
-    <span class="text-md text-gray-500">{{ props.product.condition }}</span>
+    <span class="text-md text-gray-500">{{ props.product.kondisi_barang }}</span>
   </div>
 </template>
 

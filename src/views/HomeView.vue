@@ -10,7 +10,7 @@ export default {
     NavbarComponent,
     CarouselComponent,
     LoadingBarComponent,
-    ProductListComponent,
+    ProductListComponent, 
   }
 }
 </script>
