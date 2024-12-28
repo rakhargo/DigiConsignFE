@@ -6,7 +6,7 @@
       </div>
       <ul class="menu">
         <li><router-link to="/">Home</router-link></li>
-        <li><a href="#about">About</a></li>
+        <li><router-link to="/create-product">Upload</router-link></li>
         <li><router-link to="/login">Login</router-link></li>
         <li class="menu-icon">
           <router-link to="/cart">
