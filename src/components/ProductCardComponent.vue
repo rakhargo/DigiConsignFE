@@ -12,7 +12,7 @@ const props = defineProps({
 const router = useRouter();
 
 function navigateToDetail() {
-  router.push(`/product/${props.product.id}`);
+  router.push('/product/' + props.product.id);
 }
 
 function formatRupiah(amount: number): string {

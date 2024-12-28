@@ -27,7 +27,7 @@ const router = createRouter({
       path: '/product/:id',
       name: 'product-detail',
       component: () => import('../views/ProductDetailView.vue'),
-      props: true, // Mengirim parameter `id` ke komponen
+      // props: true,
     },
     {
       path: '/cart',
