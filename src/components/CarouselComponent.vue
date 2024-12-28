@@ -1,5 +1,5 @@
 <template>
-  
+
     <div class="carousel">
       <div class="carousel-slides" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
         <div v-for="(slide, index) in images" :key="index" class="carousel-slide">
@@ -8,13 +8,13 @@
       </div>
       <br>
       <LoadingBar :progress="loadingProgress" />
-  
+
     </div>
   </template>
-  
+
   <script lang="ts">
   import LoadingBar from './LoadingBarComponent.vue';
-  
+
   export default {
     name: "CarouselComponent",
     components: {
@@ -22,7 +22,7 @@
     },
     props: {
       images: {
-        type: Array,
+        type: Array as () => string[],
         required: true,
         default: () => [],
       },
@@ -35,6 +35,8 @@
       return {
         currentIndex: 0,
         loadingProgress: 0,
+        autoSlideTimer: null as unknown as number,
+        loadingBarTimer: null as unknown as number,
       };
     },
     methods: {
@@ -55,7 +57,7 @@
       this.autoSlideTimer = setInterval(() => {
         this.nextSlide();
       }, this.autoSlideInterval);
-  
+
       this.loadingBarTimer = setInterval(() => {
         this.loadingProgress += 100 / (this.autoSlideInterval / 100);
         if (this.loadingProgress >= 100) {
@@ -69,7 +71,7 @@
     },
   };
   </script>
-  
+
   <style scoped>
   .carousel {
     position: relative;
@@ -90,4 +92,3 @@
     display: block;
   }
   </style>
-  
