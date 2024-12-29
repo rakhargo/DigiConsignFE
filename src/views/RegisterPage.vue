@@ -2,21 +2,49 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+
 const username = ref('');
+const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 const errorMessage = ref('');
+const successMessage = ref('');
 const router = useRouter();
 
-const handleRegister = () => {
+const handleRegister = async () => {
   if (password.value !== confirmPassword.value) {
     errorMessage.value = 'Passwords do not match';
-  } else {
-    // Simulate user registration logic
-    localStorage.setItem('user', JSON.stringify({ username: username.value, password: password.value }));
-    router.push('/login');
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:8000/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: username.value,
+        email: email.value,
+        password: password.value,
+        password_confirmation: confirmPassword.value, // Laravel membutuhkan password confirmation
+      }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Registration failed');
+    }
+
+    const data = await response.json();
+    successMessage.value = data.message;
+    router.push('/login'); // Arahkan ke halaman login setelah berhasil
+  } catch (error) {
+    errorMessage.value = error.message;
   }
 };
+
+
 </script>
 
 <template>
@@ -26,6 +54,9 @@ const handleRegister = () => {
       <label for="username">Username</label>
       <input id="username" v-model="username" type="text" placeholder="Choose a username" required />
 
+      <label for="email">Email</label>
+      <input id="email" v-model="email" type="email" placeholder="Enter your email" required />
+
       <label for="password">Password</label>
       <input id="password" v-model="password" type="password" placeholder="Choose a password" required />
 
@@ -33,12 +64,12 @@ const handleRegister = () => {
       <input id="confirm-password" v-model="confirmPassword" type="password" placeholder="Confirm your password" required />
 
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      <p v-if="successMessage" class="success">{{ successMessage }}</p>
 
       <button type="submit">Register</button>
     </form>
   </div>
 </template>
-
 <style scoped>
 .auth-container {
   max-width: 400px;

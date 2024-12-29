@@ -1,16 +1,17 @@
 <template>
   <div class="login-page">
     <h1>Login</h1>
-    <form @submit.prevent="handleLogin">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="username" placeholder="Masukkan username" required />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="password" placeholder="Masukkan password" required />
-      </div>
-      <button type="submit" class="btn">Login</button>
+    <form @submit.prevent="handleLogin" class="auth-form">
+      <label for="email">Email</label>
+      <input id="email" v-model="email" type="email" placeholder="Enter your email" required />
+
+      <label for="password">Password</label>
+      <input id="password" v-model="password" type="password" placeholder="Enter your password" required />
+
+      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      <p v-if="successMessage" class="success">{{ successMessage }}</p>
+
+      <button type="submit">Login</button>
     </form>
 
     <p>
@@ -24,24 +25,46 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
-  name: 'LoginPage',
   setup() {
-    const username = ref('');
+    const email = ref('');
     const password = ref('');
-    const router = useRouter();
+    const errorMessage = ref('');
+    const successMessage = ref('');
+    const router = useRouter(); 
 
-    const handleLogin = () => {
-      // Tambahkan logika autentikasi di sini
-      console.log('Username:', username.value);
-      console.log('Password:', password.value);
+    const handleLogin = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email.value,
+            password: password.value,
+          }),
+        });
 
-      // Contoh pengalihan setelah login berhasil
-      router.push('/');
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Login failed');
+        }
+
+        localStorage.setItem('token', data.access_token);
+        successMessage.value = 'Login successful!';
+        router.push('/'); // Redirect ke halaman utama
+      } catch (error) {
+        console.error('Error:', error.message);
+        errorMessage.value = error.message;
+      }
     };
 
-    return { username, password, handleLogin };
+    return { email, password, errorMessage, successMessage, handleLogin };
   },
 };
+
 </script>
 
 <style scoped>

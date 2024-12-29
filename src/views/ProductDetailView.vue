@@ -17,8 +17,6 @@ export default {
  <script setup lang="ts">
  import { ref, onMounted } from 'vue';
  import { useRoute } from 'vue-router';
- import LoadingIndicator from '../components/LoadingIndicatorComponent.vue';
- import CommentSection from '../components/CommentSectionComponent.vue';
  import api from '../api';
  
  const route = useRoute();
@@ -44,14 +42,12 @@ export default {
  </script>
  
  <template>
-   <LoadingIndicator v-if="loading"/>
+   <div v-if="loading">Loading...</div>
    <div v-else>
      <h1>{{ product.namaproduct }}</h1>
      <img :src="product.image" alt="Product Image" />
      <p>{{ product.kondisi_barang }}</p>
      <p>{{ product.harga }}</p>
-     <p>{{ product.deskripsi }}</p>
-    <CommentSection :productId="productId"/>
    </div>
  </template>
  
