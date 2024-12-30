@@ -41,6 +41,14 @@ export default {
  onMounted(() => {
    fetchProductById();
  });
+
+ function formatRupiah(amount: number): string {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+  }).format(amount);
+}
  </script>
  
  <template>
@@ -48,8 +56,9 @@ export default {
    <div v-else>
      <h1>{{ product.namaproduct }}</h1>
      <img :src="product.image" alt="Product Image" />
+     <p>Seller: {{ product.user.name }}</p>
      <p>{{ product.kondisi_barang }}</p>
-     <p>{{ product.harga }}</p>
+     <p>{{ formatRupiah(product.harga) }}</p>
      <p>{{ product.deskripsi }}</p>
     <CommentSection :productId="productId"/>
    </div>
