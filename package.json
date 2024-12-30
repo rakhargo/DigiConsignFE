@@ -12,10 +12,13 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "aos": "^2.3.4",
     "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
     "primeicons": "^7.0.0",
     "vue": "^3.5.12",
-    "vue-router": "^4.4.5"
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",

@@ -1,5 +1,9 @@
 @import './base.css';
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+*{
+  font-family: 'DM Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 /* #app {
   max-width: 1280px;
   margin: 0 auto;

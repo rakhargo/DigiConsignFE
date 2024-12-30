@@ -1,69 +1,85 @@
-<template>
-  <nav class="navbar">
-    <div class="navbar-container">
-      <div class="navbar-brand">
-        <a href="#">Digi Consign</a>
-      </div>
-      <ul class="menu">
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/create-product">Upload</router-link></li>
-        <li><router-link to="/login">Login</router-link></li>
-        <li class="menu-icon">
-          <router-link to="/cart">
-            <IconCart />
-          </router-link>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</template>
+<script lang="ts" setup>
+  import { RouterLink } from 'vue-router';
+  import { onMounted } from 'vue';
 
-<script lang="ts">
-export default {
-  name: 'NavbarComponent',
-};
+  onMounted(() => {
+    const nav = document.querySelector('.myNav');
+    if (nav) {
+      window.addEventListener('scroll', () => {
+        const navHeight = parseFloat(getComputedStyle(nav).height);
+        if (window.pageYOffset > (window.innerHeight*0.3 - navHeight)) {
+          nav.classList.add('bg-black');
+        } else {
+          nav.classList.remove('bg-black');
+        }
+      });
+    }
+  });
 </script>
 
+<template>
+<header>
+      <nav class="myNav navbar navbar-expand-lg fixed-top">
+        <div class="container">
+          <RouterLink class="navbar-brand brand-name" id="brand-text" to="/">Digi Consign</RouterLink>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <RouterLink class="nav-link" aria-current="page" to="/">Home</RouterLink>
+              </li>
+              <li class="nav-item ms-3">
+                <RouterLink class="nav-link" to="/create-product">Upload</RouterLink>
+              </li>
+              <li class="nav-item ms-3">
+                <RouterLink class="nav-link btn bg-white text-dark" to="/login">Log in</RouterLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+          </header>
+</template>
+
 <style scoped>
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #333;
-  color: #fff;
+.brand-name{
+  font-family: 'Orbitron', sans-serif;
 }
 
-.navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+#brand-text{
+    font-size: 26px;
+    color: #fff;
 }
 
-.navbar-brand a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 1.5rem;
+.myNav{
+    z-index: 10;
+    width: 100%;
+    transition: background-color 0.3s;
 }
 
-.menu {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
+.myNav .nav-link{
+    color:#fff;
 }
 
-.menu li a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
+.myNav .nav-link:hover{
+    color:#afafaf;
 }
 
-.menu li a:hover {
-  background-color: #444;
-  border-radius: 5px;
+.myNav .navbar-toggler{
+    background: #fff;
+}
+
+.myNav .nav-link:focus{
+    color:#fff;
+}
+
+.myNav .nav-link.active{
+    color:#fff;
+}
+
+.bg-black {
+  background-color: black !important;
 }
 </style>

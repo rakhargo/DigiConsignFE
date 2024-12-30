@@ -1,13 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import LoginPage from '../views/LoginPage.vue'; // Sesuaikan path dengan komponen Anda
+import HomeView from '../views/HomeView.vue';
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
+
+const routes = [
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/LoginPage.vue'),
+      // component: () => import('../views/LoginPage.vue'),
+      component: LoginPage
     },
+    //export default router;
     {
       path: '/register',
       name: 'register',
@@ -16,7 +19,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue'),
+      //component: () => import('../views/HomeView.vue'),
+      component: HomeView
     },
     {
       path: '/about',
@@ -39,7 +43,11 @@ const router = createRouter({
       name: 'create-product',
       component: () => import('../views/ProductPage.vue'),
     },
-  ],
+  ];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
 });
 
 export default router;
