@@ -4,7 +4,7 @@ import ProductCard from './ProductCardComponent.vue';
 import LoadingIndicator from './LoadingIndicatorComponent.vue';
 import { ref, onMounted } from 'vue';
 
-import api from '../api';
+import api from '@/api';
 
 const products = ref([]);
 const loading = ref(true);
@@ -29,14 +29,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"> -->
-  <LoadingIndicator v-if="loading"/>
-  <div class="product-list flex flex-wrap justify-start gap-4 p-4">
-    <ProductCard 
-      v-for="(product, index) in products" 
-      :key="index" 
-      :product="product" 
-    />
+  <div class="container">
+    <h3 class="mb-4">Sering Dicari</h3>
+    <LoadingIndicator v-if="loading" />
+    <div class="row" data-aos="fade-right" data-aos-duration="1000">
+      <ProductCard v-for="(product, index) in products" :key="index" :product="product" />
+    </div>
   </div>
 </template>
 
@@ -45,8 +43,11 @@ onMounted(() => {
   padding-left: 30px;
   padding-right: 30px;
   display: flex;
-  flex-wrap: wrap; /* Membuat item membungkus ke baris berikutnya */
-  justify-content: flex-start; /* Mengatur item ke kiri */
-  gap: 3vw; /* Jarak antar item */
+  flex-wrap: wrap;
+  /* Membuat item membungkus ke baris berikutnya */
+  justify-content: flex-start;
+  /* Mengatur item ke kiri */
+  gap: 3vw;
+  /* Jarak antar item */
 }
 </style>

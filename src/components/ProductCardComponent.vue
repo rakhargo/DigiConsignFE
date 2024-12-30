@@ -22,44 +22,34 @@ function formatRupiah(amount: number): string {
     minimumFractionDigits: 0,
   }).format(amount);
 }
+function getClass(kondisi_barang: string) {
+  if(kondisi_barang === "New") return "border-success text-success";
+  else if(kondisi_barang === "Very Good Condition" || kondisi_barang === "Good Condition") return "border-primary text-primary";
+  else return "border-warning text-warning";
+}
 </script>
 
 <template>
-  <div class="product-card" @click="navigateToDetail">
-    <img :src="props.product.image" class="product-image" alt="Product Image" />
-    <h3 class="text-lg font-bold mb-2">{{ props.product.namaproduct }}</h3>
-    <p class="text-gray-600 mb-2">{{ props.product.lokasi.nama }}</p>
-    <div class="flex justify-between items-center mt-4">
-      <span class="text-xl font-bold">{{ formatRupiah(props.product.harga) }}</span>
+  <div class="col-xl-3 col-md-4 col-sm-6 mb-3">
+    <div class="card mx-auto product-card" @click="navigateToDetail">
+    <img :src="props.product.image" class="card-img-top" alt="Foto produk {{props.product.namaproduct}}">
+    <div class="card-body">
+      <h5 class="card-title">{{props.product.namaproduct}}</h5>
+      <p class="card-text"><b>{{ formatRupiah(props.product.harga) }}</b></p>
+      <div :class="['border', 'w-75', 'my-3', getClass(props.product.kondisi_barang)]">
+        <p class="card-text">{{props.product.kondisi_barang}}</p>
+      </div>
+      <p class="text-small fw-bold">{{props.product.lokasi.nama}}</p>
+      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
     </div>
-    <span class="text-md text-gray-500">{{ props.product.kondisi_barang }}</span>
+  </div>
   </div>
 </template>
 
 <style scoped>
-.product-card {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 100%;
-  padding: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer; /* Menjadikan kursor menjadi pointer saat hover */
-}
-
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.product-image {
-  height: 200px;
-  max-width: 100%;
-  object-fit: cover;
-  border-radius: 12px 12px 0 0;
-}
-
-h3, p, span {
-  color: black;
+  cursor: pointer;
 }
 </style>
