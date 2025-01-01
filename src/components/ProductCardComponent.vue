@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { formatRupiah } from '@/utils/formatRupiah';
 
 const props = defineProps({
   product: {
@@ -15,13 +16,6 @@ function navigateToDetail() {
   router.push('/product/' + props.product.id);
 }
 
-function formatRupiah(amount: number): string {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-  }).format(amount);
-}
 function getClass(kondisi_barang: string) {
   if(kondisi_barang === "New") return "border-success text-success";
   else if(kondisi_barang === "Very Good Condition" || kondisi_barang === "Good Condition") return "border-primary text-primary";
@@ -36,10 +30,10 @@ function getClass(kondisi_barang: string) {
     <div class="card-body">
       <h5 class="card-title">{{props.product.namaproduct}}</h5>
       <p class="card-text"><b>{{ formatRupiah(props.product.harga) }}</b></p>
-      <div :class="['border', 'w-75', 'my-3', getClass(props.product.kondisi_barang)]">
-        <p class="card-text">{{props.product.kondisi_barang}}</p>
+      <div :class="['border', 'rounded', 'my-3', getClass(props.product.kondisi_barang)]">
+        <p class="card-text text-center my-1">{{props.product.kondisi_barang}}</p>
       </div>
-      <p class="text-small fw-bold">{{props.product.lokasi.nama}}</p>
+      <p class="fs-6 fw-bold"><i class='bx bx-map'></i> {{props.product.lokasi.nama}}</p>
       <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
     </div>
   </div>

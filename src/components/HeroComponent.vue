@@ -1,6 +1,13 @@
 <script lang="ts" setup>
 import img from '@/assets/img/herobg.jpg';
 import { RouterLink } from 'vue-router';
+import {ref, onMounted} from 'vue';
+
+const isLoggedIn = ref(false);
+onMounted(() => {
+  const token = localStorage.getItem('token');
+  isLoggedIn.value = !!token;
+});
 </script>
 <template>
   <section id="landing" :style="{ backgroundImage: 'url(' + img + ')' }" class="hero-section">
@@ -16,7 +23,7 @@ import { RouterLink } from 'vue-router';
           </div>
         </div>
       </div>
-      <div class="row my-3">
+      <div v-if="!isLoggedIn" class="row my-3">
         <div class="col ms-5">
           <RouterLink to="/register" class="btn bg-white register-btn">
             Register

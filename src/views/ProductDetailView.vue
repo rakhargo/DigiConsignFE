@@ -1,64 +1,100 @@
-<!-- <script lang="ts">
-import NavbarComponent from '../components/NavbarComponent.vue'
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import api from '../api';
+import NavbarComponent from '../components/NavbarComponent.vue';
+import ProductImageComponent from '@/components/ProductImageComponent.vue';
+import ProductDetailComponent from '@/components/ProductDetailComponent.vue';
+import AddToCartComponent from '@/components/AddToCartComponent.vue';
+import ProductCommentsListComponent from '@/components/ProductCommentsListComponent.vue';
+import LoadingBarComponent from '../components/LoadingBarComponent.vue';
 
-export default {
-  name: "ProductDetailView",
-  components: {
-    NavbarComponent,
+// Define types
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  kondisi_barang: string;
+  lokasi: { nama: string };
+  image: string;
+  user: { id: number; name: string };
+}
+
+interface Comment {
+  id: number;
+  user: { name: string };
+  isi_komentar: string;
+  balasan_komentar?: string;
+  created_at: string;
+}
+
+// Initialize refs
+const route = useRoute();
+const productId = route.params.id as string;
+const product = ref<Product | null>(null);
+const comments = ref<Comment[]>([]);
+const loading = ref(true);
+const commentsLoading = ref(true);
+
+// Fetch product data by ID
+async function fetchProductById() {
+  loading.value = true;
+  try {
+    const response = await api.get(`/api/product/${productId}`);
+    product.value = response.data;
+  } catch (error) {
+    console.error('Error fetching product:', error);
+  } finally {
+    loading.value = false;
   }
 }
+
+// Fetch comments for the product
+async function fetchComments() {
+  commentsLoading.value = true;
+  try {
+    const response = await api.get(`/api/product/${productId}/komentar`);
+    comments.value = response.data;
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+  } finally {
+    commentsLoading.value = false;
+  }
+}
+
+// Fetch data on mount
+onMounted(() => {
+  fetchProductById();
+  fetchComments();
+});
 </script>
 
 <template>
-    <NavbarComponent />
-    <br>
+  <NavbarComponent class="mb-5" />
+  <div class="container-fluid pt-5">
+    <LoadingBarComponent v-if="loading" />
+    <div v-else class="row">
+      <div class="col">
+        <ProductImageComponent :img="product?.image || ''" />
+      </div>
+      <div class="col">
+        <ProductDetailComponent :product="product" />
+      </div>
+      <div class="col">
+        <AddToCartComponent :product="product" />
+      </div>
+    </div>
+    <hr />
+    <div v-if="commentsLoading">
+      <LoadingBarComponent />
+    </div>
+    <div v-else>
+      <ProductCommentsListComponent :comments="comments" />
+    </div>
+  </div>
 </template>
- -->
- <script setup lang="ts">
- import { ref, onMounted } from 'vue';
- import { useRoute } from 'vue-router';
- import api from '../api';
- 
- const route = useRoute();
- const productId = route.params.id; // Mengambil id dari props jika props: true diaktifkan
- const product = ref({});
- const loading = ref(true);
- 
- async function fetchProductById() {
-   loading.value = true;
-   try {
-     const response = await api.get('/api/product/' + productId);
-     product.value = response.data;
-   } catch (error) {
-     console.error('Error fetching product:', error);
-   } finally {
-     loading.value = false;
-   }
- }
- 
- onMounted(() => {
-   fetchProductById();
- });
 
- function formatRupiah(amount: number): string {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-  }).format(amount);
-}
- </script>
- 
- <template>
-   <div v-if="loading">Loading...</div>
-   <div v-else>
-     <h1>{{ product.namaproduct }}</h1>
-     <img :src="product.image" alt="Product Image" />
-     <p>Seller: {{ product.user.name }}</p>
-     <p>{{ product.kondisi_barang }}</p>
-     <p>{{ formatRupiah(product.harga) }}</p>
-     <p>{{ product.deskripsi }}</p>
-    <CommentSection :productId="productId"/>
-   </div>
- </template>
- 
+<style scoped>
+
+</style>

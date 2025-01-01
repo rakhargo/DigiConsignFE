@@ -5,6 +5,9 @@ import router from './router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import 'boxicons/css/boxicons.min.css';
+
+
 const app = createApp(App)
 
 AOS.init();

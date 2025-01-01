@@ -30,7 +30,7 @@ export default {
     const password = ref('');
     const errorMessage = ref('');
     const successMessage = ref('');
-    const router = useRouter(); 
+    const router = useRouter();
 
     const handleLogin = async () => {
       try {
@@ -53,6 +53,8 @@ export default {
         }
 
         localStorage.setItem('token', data.access_token);
+        localStorage.setItem('user_id', data.user.id);
+        localStorage.setItem('username', data.user.name);
         successMessage.value = 'Login successful!';
         router.push('/'); // Redirect ke halaman utama
       } catch (error) {
