@@ -29,10 +29,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container">
-    <h3 class="mb-4">Sering Dicari</h3>
+  <div class="container py-3" data-aos="fade-up" data-aos-duration="1000">
+    <h4 class="mb-4 fw-bold text-white">Sering Dicari</h4>
     <LoadingIndicator v-if="loading" />
-    <div class="row" data-aos="fade-right" data-aos-duration="1000">
+    <div class="row" data-aos="fade-right" data-aos-duration="1500">
       <ProductCard v-for="(product, index) in products" :key="index" :product="product" />
     </div>
   </div>

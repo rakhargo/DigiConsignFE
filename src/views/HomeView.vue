@@ -3,6 +3,7 @@ import NavbarComponent from '../components/NavbarComponent.vue'
 import LoadingBarComponent from '../components/LoadingBarComponent.vue'
 import ProductListComponent from '../components/ProductListComponent.vue'
 import HeroComponent from '@/components/HeroComponent.vue'
+import CategoryGridComponent from '@/components/CategoryGridComponent.vue'
 
 import { onMounted } from 'vue';
 onMounted(() => {
@@ -25,10 +26,11 @@ onMounted(() => {
   <!-- <main> -->
     <NavbarComponent />
     <HeroComponent/>
-    <br>
     <LoadingBarComponent />
-    <br>
-    <ProductListComponent />
+    <CategoryGridComponent class="my-3"/>
+    <div class="container-fluid bg-black">
+      <ProductListComponent class="my-3"/>
+    </div>
   <!-- </main> -->
 </template>
 
