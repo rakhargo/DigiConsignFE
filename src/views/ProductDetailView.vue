@@ -75,13 +75,13 @@ onMounted(() => {
   <div class="container-fluid pt-5">
     <LoadingBarComponent v-if="loading" />
     <div v-else class="row">
-      <div class="col">
+      <div class="col-md-4 col-sm-6 mb-3">
         <ProductImageComponent :img="product?.image || ''" />
       </div>
-      <div class="col">
+      <div class="col-md-4 col-sm-6 mb-3">
         <ProductDetailComponent :product="product" />
       </div>
-      <div class="col">
+      <div class="col-md-4 col-sm-6 mb-3">
         <AddToCartComponent :product="product" />
       </div>
     </div>

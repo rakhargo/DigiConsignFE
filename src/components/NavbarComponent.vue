@@ -8,6 +8,7 @@
   onMounted(() => {
     const token = localStorage.getItem('token');
     isLoggedIn.value = !!token;
+    console.log(token);
   });
 </script>
 
@@ -30,6 +31,7 @@
                 <ul class="dropdown-menu">
                   <li><RouterLink class="dropdown-item" to="/profile">Profile</RouterLink></li>
                   <li><RouterLink class="dropdown-item" to="/logout">Logout</RouterLink></li>
+                  <li><RouterLink class="dropdown-item" to="/sell">Jual</RouterLink></li>
                 </ul>
               </li>
             </ul>

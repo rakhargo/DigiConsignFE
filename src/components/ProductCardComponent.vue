@@ -17,7 +17,7 @@ function navigateToDetail() {
 }
 
 function getClass(kondisi_barang: string) {
-  if(kondisi_barang === "New") return "border-success text-success";
+  if(kondisi_barang === "Brand New in Box") return "border-success text-success";
   else if(kondisi_barang === "Very Good Condition" || kondisi_barang === "Good Condition") return "border-primary text-primary";
   else return "border-warning text-warning";
 }
@@ -41,6 +41,11 @@ function getClass(kondisi_barang: string) {
 </template>
 
 <style scoped>
+.card-img-top{
+  height: 35vh;
+  object-fit: contain;
+}
+
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);

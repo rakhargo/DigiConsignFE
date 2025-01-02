@@ -9,13 +9,14 @@ const props = defineProps<{
 
 <template>
   <!-- Use props.img to bind the image source -->
-  <img :src="img" class="img-fluid rounded" alt="Product Image" />
+  <img :src="img" class="img-fluid rounded border d-flex mx-auto" alt="Product Image" />
 </template>
 
 <style scoped>
 /* Add any necessary styles */
 .img-fluid {
   max-width: 100%;
-  height: auto;
+  max-height: 45vh;
+  object-fit: contain;
 }
 </style>
