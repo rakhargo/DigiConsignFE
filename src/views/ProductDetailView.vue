@@ -37,6 +37,7 @@ const product = ref<Product | null>(null);
 const comments = ref<Comment[]>([]);
 const loading = ref(true);
 const commentsLoading = ref(true);
+const user_id = localStorage.getItem("user_id")
 
 // Fetch product data by ID
 async function fetchProductById() {
@@ -87,7 +88,7 @@ onMounted(() => {
       <div class="col-md-4 col-sm-6 mb-3">
         <ProductDetailComponent :product="product" />
       </div>
-      <div class="col-md-4 col-sm-6 mb-3">
+      <div v-if="product.user.id != user_id" class="col-md-4 col-sm-6 mb-3">
         <AddToCartComponent :product="product" />
       </div>
     </div>
@@ -96,7 +97,7 @@ onMounted(() => {
       <LoadingBarComponent />
     </div>
     <div v-else>
-      <ProductCommentsListComponent :comments="comments" />
+      <ProductCommentsListComponent :user_id="user_id" :comments="comments" />
     </div>
   </div>
 </template>

@@ -8,8 +8,7 @@ const props = defineProps({
     required: true,
   },
 });
-
-console.log(props.product);
+const user_id = localStorage.getItem("user_id")
 </script>
 <template>
   <div class="row">
@@ -38,7 +37,8 @@ console.log(props.product);
   <hr>
   <div class="row">
     <div class="col">
-      <RouterLink :to="`/profile/${product.user.id}`">{{ product.user.name }}</RouterLink>
+      <RouterLink v-if="product.user.id == user_id" :to="`/profile/${product.user.id}`">Milik Saya</RouterLink>
+      <h5 v-else class="text-primary">{{ product.user.name }}</h5>
     </div>
   </div>
 </template>

@@ -8,7 +8,7 @@
   onMounted(() => {
     const token = localStorage.getItem('token');
     isLoggedIn.value = !!token;
-    console.log(token);
+    // console.log(token);
   });
 </script>
 
