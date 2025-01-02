@@ -17,7 +17,7 @@ function navigateToDetail() {
 }
 
 function getClass(kondisi_barang: string) {
-  if(kondisi_barang === "New") return "border-success text-success";
+  if(kondisi_barang === "Brand New Open Box" || kondisi_barang === "Brand New In Box") return "border-success text-success";
   else if(kondisi_barang === "Very Good Condition" || kondisi_barang === "Good Condition") return "border-primary text-primary";
   else return "border-warning text-warning";
 }

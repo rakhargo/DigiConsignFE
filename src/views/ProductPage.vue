@@ -1,3 +1,105 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import NavbarComponent from '../components/NavbarComponent.vue';
+import { useRouter } from 'vue-router';
+import api from '../api';
+
+interface Kategori {
+  id: number;
+  nama: string;
+}
+
+interface Lokasi {
+  id: number;
+  nama: string;
+}
+
+const router = useRouter();
+const kategori = ref<Kategori[]>([]);
+const lokasi = ref<Lokasi[]>([]);
+const formData = ref({
+  name: '',
+  price: 0,
+  condition: '',
+  location: '',
+  category: '',
+  description: '',
+  image: null,
+});
+async function fetchAllKategori() {
+  try {
+    const response = await api.get('/api/kategori');
+    kategori.value = response.data;
+  } catch (error) {
+    console.error(error);
+  } 
+}
+
+async function fetchAllLokasi() {
+  try {
+    const response = await api.get('/api/lokasi');
+    lokasi.value = response.data;
+  } catch (error) {
+    console.error(error);
+  } 
+}
+
+console.log("userid")
+console.log(localStorage.getItem('user_id'))
+async function handleSubmit() {
+  const userId = localStorage.getItem('user_id');
+  const data = {
+    namaproduct: formData.value.name,
+    harga: formData.value.price,
+    kondisi_barang: formData.value.condition,
+    lokasi_id: formData.value.location, // Pastikan ini adalah ID lokasi
+    kategori_id: formData.value.category, // Pastikan ini adalah ID kategori
+    user_id: userId, // ID pengguna yang sedang login
+    tanggal_publish: new Date().toISOString(), // Tanggal publish
+    deskripsi: formData.value.description,
+    image: formData.value.image, // Anda perlu mengunggah gambar ini
+  };
+  try {
+    const response = await api.post('/api/product', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // Pastikan header ini ditambahkan
+      },
+    });
+    console.log('Product created:', response.data);
+    // Reset form setelah berhasil
+    resetForm();
+    router.push('/');
+  } catch (error) {
+    console.error('Error creating product:', error);
+  }
+}
+
+function handleImageUpload(event: Event) {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files.length > 0) {
+    formData.value.image = target.files[0]; // Simpan file gambar
+  }
+}
+
+function resetForm() {
+  formData.value = {
+    name: '',
+    price: 0,
+    condition: '',
+    location: '',
+    category: '',
+    description: '',
+    image: null,
+  };
+}
+
+onMounted(() => {
+  fetchAllKategori();
+  fetchAllLokasi();
+});
+
+</script>
+
 <template>
   <NavbarComponent />
   <div class="create-product-page">
@@ -9,6 +111,11 @@
       </div>
 
       <div class="form-group">
+        <label for="name">Product Name</label>
+        <input type="text" id="name" v-model="formData.name" placeholder="Enter product name" required />
+      </div>
+
+      <div class="form-group">
         <label for="price">Price</label>
         <input type="number" id="price" v-model="formData.price" placeholder="Enter price" required />
       </div>
@@ -17,8 +124,11 @@
         <label for="condition">Condition</label>
         <select id="condition" v-model="formData.condition" required>
           <option value="">Select condition</option>
-          <option value="good">Good</option>
-          <option value="very_good">Very Good</option>
+          <option value="Brand New In Box">Brand New In Box</option>
+          <option value="Brand New Open Box">Brand New Open Box</option>
+          <option value="Very Good Condition">Very Good Condition</option>
+          <option value="Good Condition">Good Condition</option>
+          <option value="Judge By Pict">Judge By Pict</option>
         </select>
       </div>
 
@@ -26,8 +136,7 @@
         <label for="location">Location</label>
         <select id="location" v-model="formData.location" required>
           <option value="">Select location</option>
-          <option value="jakarta">Jakarta</option>
-          <option value="bekasi">Bekasi</option>
+          <option v-for="loc in lokasi" :key="loc.id" :value="loc.id">{{ loc.nama }}</option>
         </select>
       </div>
 
@@ -35,8 +144,7 @@
         <label for="category">Category</label>
         <select id="category" v-model="formData.category" required>
           <option value="">Select category</option>
-          <option value="laptop">Laptop</option>
-          <option value="mouse">Mouse</option>
+          <option v-for="cat in kategori" :key="cat.id" :value="cat.id">{{ cat.nama }}</option>
         </select>
       </div>
 
@@ -49,40 +157,6 @@
     </form>
   </div>
 </template>
-
-<script lang="ts">
-import NavbarComponent from '../components/NavbarComponent.vue';
-
-export default {
-  name: 'CreateProductPage',
-  components: {
-    NavbarComponent,
-  },
-  data() {
-    return {
-      formData: {
-        price: '',
-        condition: '',
-        location: '',
-        category: '',
-        description: '',
-      },
-    };
-  },
-  methods: {
-    handleImageUpload(event: Event) {
-      const file = (event.target as HTMLInputElement).files?.[0];
-      if (file) {
-        console.log('Uploaded file:', file);
-      }
-    },
-    handleSubmit() {
-      console.log('Form data submitted:', this.formData);
-      alert('Product created successfully!');
-    },
-  },
-};
-</script>
 
 <style scoped>
 .create-product-page {

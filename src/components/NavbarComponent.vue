@@ -21,15 +21,15 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
+              <li v-if="isLoggedIn" class="nav-item">
                 <RouterLink class="nav-link mt-1" aria-current="page" to="/create-product">| Upload Produk |</RouterLink>
-              </li>
-              <li class="nav-item dropdown">
-                <RouterLink v-if="!isLoggedIn" class="nav-link btn bg-white text-dark" to="/login">Log in</RouterLink>
-                <a v-if="isLoggedIn" class="nav-link my-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bxs-user-circle fs-2'></i></a>
-                <ul class="dropdown-menu">
-                  <li><RouterLink class="dropdown-item" to="/profile">Profile</RouterLink></li>
-                  <li><RouterLink class="dropdown-item" to="/logout">Logout</RouterLink></li>
+                </li>
+                <li class="nav-item dropdown">
+                  <RouterLink v-if="!isLoggedIn" class="nav-link btn bg-white text-dark" to="/login">Log in</RouterLink>
+                  <a v-if="isLoggedIn" class="nav-link my-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bxs-user-circle fs-2'></i></a>
+                  <ul class="dropdown-menu">
+                    <li><RouterLink class="dropdown-item" to="/profile">Profile</RouterLink></li>
+                    <li><RouterLink class="dropdown-item" to="/logout">Logout</RouterLink></li>
                 </ul>
               </li>
             </ul>
