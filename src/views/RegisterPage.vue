@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import api from '../api';
 
 
-const username = ref('');
+const nama = ref('');
 const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
@@ -22,21 +23,20 @@ const handleRegister = async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
-        name: username.value,
+        name: nama.value,
         email: email.value,
         password: password.value,
         password_confirmation: confirmPassword.value, // Laravel membutuhkan password confirmation
       }),
     });
-
-    if (!response.ok) {
-      const data = await response.json();
-      throw new Error(data.message || 'Registration failed');
-    }
-
+    
     const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Login failed');
+    }    
     successMessage.value = data.message;
     router.push('/login'); // Arahkan ke halaman login setelah berhasil
   } catch (error) {
@@ -51,8 +51,8 @@ const handleRegister = async () => {
   <div class="auth-container">
     <h1>Register</h1>
     <form @submit.prevent="handleRegister" class="auth-form">
-      <label for="username">Username</label>
-      <input id="username" v-model="username" type="text" placeholder="Choose a username" required />
+      <label for="nama">Nama Lengkap</label>
+      <input id="nama" v-model="nama" type="text" placeholder="Nama Lengkap" required />
 
       <label for="email">Email</label>
       <input id="email" v-model="email" type="email" placeholder="Enter your email" required />
