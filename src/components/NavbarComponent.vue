@@ -22,7 +22,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <RouterLink class="nav-link mt-1" aria-current="page" to="/">Home</RouterLink>
+                <RouterLink class="nav-link mt-1" aria-current="page" to="/create-product">| Upload Produk |</RouterLink>
               </li>
               <li class="nav-item">
                 <RouterLink v-if="!isLoggedIn" class="nav-link btn bg-white text-dark" to="/login">Log in</RouterLink>
