@@ -107,6 +107,7 @@ onMounted(() => {
         <label for="kondisi">Kondisi Barang</label>
         <select id="kondisi" v-model="form.kondisi_barang" required>
           <option value="Brand New in Box">Brand New in Box</option>
+          <option value="Brand New Open Box">Brand New Open Box</option>
           <option value="Very Good Condition">Very Good Condition</option>
           <option value="Good Condition">Good Condition</option>
           <option value="Judge by Pict">Judge by Pict</option>
