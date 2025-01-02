@@ -29,7 +29,8 @@ const props = defineProps({
     </div>
     <div class="row">
       <div class="col">
-        <RouterLink class="btn btn-primary w-100" :to="'/product/'+props.product.id">+ Keranjang</RouterLink>
+        <RouterLink v-if=!props.product.is_sold class="btn btn-primary w-100" :to="'/product/'+props.product.id">+ Keranjang</RouterLink>
+        <span v-else class="btn btn-danger w-100" style="pointer-events: none;">Sold</span>
       </div>
     </div>
   </div>

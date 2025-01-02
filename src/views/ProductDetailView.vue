@@ -19,6 +19,7 @@ interface Product {
   lokasi: { nama: string };
   image: string;
   user: { id: number; name: string };
+  is_sold: number;
 }
 
 interface Comment {
@@ -76,7 +77,12 @@ onMounted(() => {
     <LoadingBarComponent v-if="loading" />
     <div v-else class="row">
       <div class="col-md-4 col-sm-6 mb-3">
+        <div class="image-container">
         <ProductImageComponent :img="product?.image || ''" />
+        <div v-if="product.is_sold" class="overlay">
+          <span class="sold-text">Sold</span>
+        </div>
+      </div>
       </div>
       <div class="col-md-4 col-sm-6 mb-3">
         <ProductDetailComponent :product="product" />
@@ -97,4 +103,25 @@ onMounted(() => {
 
 <style scoped>
 
+.image-container {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay with opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sold-text {
+  color: white;
+  font-size: 1.5rem; /* Adjust size as needed */
+  font-weight: bold;
+}
 </style>

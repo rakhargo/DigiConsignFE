@@ -26,7 +26,13 @@ function getClass(kondisi_barang: string) {
 <template>
   <div class="col-xl-3 col-md-4 col-sm-6 mb-3">
     <div class="card mx-auto product-card" @click="navigateToDetail">
-    <img :src="props.product.image" class="card-img-top" alt="Foto produk {{props.product.namaproduct}}">
+    <!-- <img :src="props.product.image" class="card-img-top" alt="Foto produk {{props.product.namaproduct}}"> -->
+    <div class="image-container">
+        <img :src="props.product.image" class="card-img-top" alt="Foto produk {{props.product.namaproduct}}">
+        <div v-if="props.product.is_sold" class="overlay">
+          <span class="sold-text">Sold</span>
+        </div>
+      </div>
     <div class="card-body">
       <h5 class="card-title">{{props.product.namaproduct}}</h5>
       <p class="card-text"><b>{{ formatRupiah(props.product.harga) }}</b></p>
@@ -50,5 +56,27 @@ function getClass(kondisi_barang: string) {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+}
+
+.image-container {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay with opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sold-text {
+  color: white;
+  font-size: 1.5rem; /* Adjust size as needed */
+  font-weight: bold;
 }
 </style>

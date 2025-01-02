@@ -15,6 +15,7 @@ const form = ref({
   user_id: localStorage.getItem("user_id"),
   image: null, // For storing the uploaded image file
   tanggal_publish: '',
+  is_sold: 0,
 });
 
 // Options for lokasi and kategori
