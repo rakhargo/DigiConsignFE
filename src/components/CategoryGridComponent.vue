@@ -60,7 +60,7 @@ function navigateToCategory(id: number) {
 }
 
 .category-item:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05);
   cursor: pointer;
 }
 </style>

@@ -43,6 +43,11 @@ const routes = [
       name: 'create-product',
       component: () => import('../views/ProductPage.vue'),
     },
+    {
+      path:'/logout',
+      name:'logout',
+      component: () => import('../views/LogoutView.vue'),
+    }
   ];
 
 const router = createRouter({

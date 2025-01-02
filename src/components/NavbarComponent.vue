@@ -24,9 +24,13 @@
               <li class="nav-item">
                 <RouterLink class="nav-link mt-1" aria-current="page" to="/">Home</RouterLink>
               </li>
-              <li class="nav-item">
+              <li class="nav-item dropdown">
                 <RouterLink v-if="!isLoggedIn" class="nav-link btn bg-white text-dark" to="/login">Log in</RouterLink>
-                <RouterLink v-if="isLoggedIn" class="nav-link my-auto" to="/profile"><i class='bx bxs-user-circle fs-2'></i></RouterLink>
+                <a v-if="isLoggedIn" class="nav-link my-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bxs-user-circle fs-2'></i></a>
+                <ul class="dropdown-menu">
+                  <li><RouterLink class="dropdown-item" to="/profile">Profile</RouterLink></li>
+                  <li><RouterLink class="dropdown-item" to="/logout">Logout</RouterLink></li>
+                </ul>
               </li>
             </ul>
           </div>
