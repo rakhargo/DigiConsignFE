@@ -14,8 +14,8 @@ const logout = async () => {
 
     // Clear local storage and user-related data
     localStorage.removeItem('token');
-    localStorage.removeItem('user_id');
     localStorage.removeItem('username');
+    localStorage.removeItem('user_id');
 
     // Redirect to the login page
     router.push('/');

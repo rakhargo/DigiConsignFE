@@ -8,7 +8,7 @@
   onMounted(() => {
     const token = localStorage.getItem('token');
     isLoggedIn.value = !!token;
-    // console.log(token);
+    console.log(token);
   });
 </script>
 
@@ -23,7 +23,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
               <li v-if="isLoggedIn" class="nav-item">
-                <RouterLink class="nav-link mt-1" aria-current="page" to="/sell">| Upload Produk |</RouterLink>
+                <RouterLink class="nav-link mt-1" aria-current="page" to="/sell">Jual Produk</RouterLink>
               </li>
               <li class="nav-item dropdown">
                 <RouterLink v-if="!isLoggedIn" class="nav-link btn bg-white text-dark" to="/login">Log in</RouterLink>
