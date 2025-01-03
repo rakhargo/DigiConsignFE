@@ -65,6 +65,8 @@ const submitPurchase = async () => {
     // Update the UI on successful transaction
     isBuying.value = false;
     isSold.value = true;
+
+    location.reload();
   } catch (error) {
     console.error('Purchase Failed:', error);
     alert('Transaction failed. Please try again.');

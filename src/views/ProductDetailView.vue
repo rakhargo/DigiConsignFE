@@ -63,7 +63,7 @@ async function fetchComments() {
     commentsLoading.value = false;
   }
 }
-
+const idLogin = localStorage.getItem('user_id');
 // Fetch data on mount
 onMounted(() => {
   fetchProductById();
@@ -87,7 +87,7 @@ onMounted(() => {
       <div class="col-md-4 col-sm-6 mb-3">
         <ProductDetailComponent :product="product" />
       </div>
-      <div v-if="product.user.id != user_id" class="col-md-4 col-sm-6 mb-3">
+      <div v-if="product.user.id != idLogin" class="col-md-4 col-sm-6 mb-3">
         <AddToCartComponent :product="product" />
       </div>
     </div>

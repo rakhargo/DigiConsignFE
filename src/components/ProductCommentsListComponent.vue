@@ -45,7 +45,7 @@ async function handleSubmit() {
     console.log('Comment created:', response.data);
     // Reset form setelah berhasil
     // router.push('/product/' + props.comments[0].product.id);
-    // location.reload();
+    location.reload();
 
   } catch (error) {
     console.error('Error creating Comment:', error);
