@@ -153,5 +153,6 @@ const submitPurchase = async () => {
 .thumbnail {
   max-width: 50px !important;
   max-height: 50px !important;
+  object-fit: contain;
 }
 </style>
