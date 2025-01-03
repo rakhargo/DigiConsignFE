@@ -14,8 +14,17 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  is_sold:{
+    type: Boolean,
+    required: true,
+  },
+  product_id:{
+    type: Number,
+    required: true,
+  },
 });
 const user_id = localStorage.getItem("user_id");
+const is_logged_in = !!user_id;
 const router = useRouter();
 const formData = ref({
   isi_komentar: '',
@@ -28,7 +37,7 @@ async function handleSubmit() {
   };
   console.log('Data:', data);
   try {
-    const response = await api.post('/api/product/' + props.comments[0].product.id + '/komentar', data, {
+    const response = await api.post('/api/product/' + props.product_id + '/komentar', data, {
       headers: {
         'Content-Type': 'multipart/form-data', // Pastikan header ini ditambahkan
       },
@@ -36,7 +45,8 @@ async function handleSubmit() {
     console.log('Comment created:', response.data);
     // Reset form setelah berhasil
     // router.push('/product/' + props.comments[0].product.id);
-    location.reload();
+    // location.reload();
+
   } catch (error) {
     console.error('Error creating Comment:', error);
   }
@@ -48,8 +58,8 @@ async function handleSubmit() {
   <div class="mx-3">
     <h4>Diskusi ({{ comments.length }})</h4>
 
-    <form @submit.prevent="handleSubmit">
-      <div v-if="props.user_id != user_id" class="row">
+    <form @submit.prevent="handleSubmit" id="comment-form">
+      <div v-if="props.user_id != user_id && !is_sold && is_logged_in" class="row">
         <div class="col-11">
           <input type="text" v-model="formData.isi_komentar" class="form-control border border-2 rounded" placeholder="Mulai diskusi...">
         </div>

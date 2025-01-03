@@ -59,6 +59,8 @@ const submitPurchase = async () => {
       },
     });
     alert('Pembelian berhasil!');
+    const comment_form = document.getElementById('comment-form') as HTMLInputElement;
+    comment_form.remove();
 
     // Update the UI on successful transaction
     isBuying.value = false;

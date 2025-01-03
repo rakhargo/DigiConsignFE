@@ -9,7 +9,7 @@ const props = defineProps<{
 
 <template>
   <!-- Use props.img to bind the image source -->
-  <img :src="img" class="img-fluid rounded border d-flex mx-auto" alt="Product Image" />
+  <img :src="img" class="img-fluid rounded border d-flex mx-auto" alt="Product Image"/>
 </template>
 
 <style scoped>
